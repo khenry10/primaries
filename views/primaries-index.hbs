@@ -3,3 +3,10 @@
   <a href="/{{primary.state}}"><h2>{{primary.state}}</a></h2>
   <p>{{primary.winner}}  {{primary.delegates}}</p>
 {{/each}}
+
+<form action="/" method="POST" >
+  <input type="text" name="primary[state]" placeholder="State" />
+  <input type="text" name="primary[winner]" placeholder="Winner" />
+  <input type="text" name="primary[delegates]" placeholder="Delegates" />
+  <button type="Submit"> Update </button>
+</form>

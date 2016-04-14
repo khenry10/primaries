@@ -2,8 +2,12 @@
 
 {{primary.winner}} won {{primary.delegates}}
 
-<form action="/{{primary.state}}" method="POST">
+<form action="/{{primary.state}}" method="POST" >
   <input type="text" name="primary[winner]" placeholder="{{primary.winner}}" />
   <input type="text" name="primary[delegates]" placeholder="{{primary.delegates}}" />
   <button type="Submit"> Update </button>
+</form>
+
+<form action="/{{primary.state}}/delete" method="POST" >
+  <button type="Submit">Delete</button>
 </form>

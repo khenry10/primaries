@@ -17,6 +17,7 @@ app.engine(".hbs", hbs({
 
 app.use(parser.urlencoded({extended: true}));
 
+// index view
 app.get("/", function(req, res){
   Primaries.find().then(function(primaries){
     res.render("primaries-index", {
@@ -25,6 +26,7 @@ app.get("/", function(req, res){
   });
 });
 
+// show page
 app.get("/:state", function(req, res){
   Primaries.findOne({state: req.params.state}).then(function(primary){
     res.render("primaries-show", {
@@ -33,11 +35,23 @@ app.get("/:state", function(req, res){
   });
 });
 
+// update functionality on show
 app.post("/:state", function(req, res){
-  console.log(req.params.state)
-  console.log(req.body)
   Primaries.findOneAndUpdate({state: req.params.state}, req.body.primary, {new: true}).then(function(primary){
     res.redirect("/" + primary.state)
+  });
+});
+
+// delete functionality on show
+app.post("/:state/delete", function(req, res){
+  Primaries.findOneAndRemove({state: req.params.state}).then(function(){
+    res.redirect("/")
+  });
+});
+
+app.post("/", function(req, res){
+  Primaries.create(req.body.primary).then(function(){
+    res.redirect("/")
   });
 });
 
