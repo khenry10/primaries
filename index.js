@@ -20,7 +20,6 @@ app.engine(".hbs", hbs({
 
 app.use(parser.urlencoded({extended: true}));
 
-
 // index view
 app.get("/api", function(req, res){
   Primaries.find().then(function(primaries){
