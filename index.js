@@ -7,6 +7,7 @@ var app          = express()
 
 var Primaries    = mongoose.model("Primaries")
 
+app.use("/assets", express.static("public"));
 app.set("port", process.env.PORT || 3001)
 
 app.set("view engine", "hbs");
@@ -19,23 +20,20 @@ app.engine(".hbs", hbs({
 
 app.use(parser.urlencoded({extended: true}));
 
+
 // index view
-app.get("/", function(req, res){
+app.get("/api", function(req, res){
   Primaries.find().then(function(primaries){
-    res.render("primaries-index", {
-      primaries
-    });
+    res.json(primaries)
   });
 });
 
 // show page
-app.get("/:state", function(req, res){
+app.get("/api/:state", function(req, res){
   Primaries.findOne({state: req.params.state}).then(function(primary){
-    res.render("primaries-show", {
-      primary
+    res.json(primary)
     });
   });
-});
 
 // update functionality on show
 app.post("/:state", function(req, res){
@@ -55,6 +53,10 @@ app.post("/", function(req, res){
   Primaries.create(req.body.primary).then(function(){
     res.redirect("/")
   });
+});
+
+app.get("/*", function(req, res){
+  res.render("primary");
 });
 
 app.listen(app.get("port"), function(){
