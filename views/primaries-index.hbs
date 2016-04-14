@@ -1,7 +1,7 @@
 
 {{#each primaries as |primary|}}
   <a href="/{{primary.state}}"><h2>{{primary.state}}</a></h2>
-  <p>{{primary.winner}}  {{primary.delegates}}</p>
+  <p>{{primary.winner}} won {{primary.delegates}} delegates.</p>
 {{/each}}
 
 <form action="/" method="POST" >
