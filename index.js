@@ -33,6 +33,14 @@ app.get("/:state", function(req, res){
   });
 });
 
+app.post("/:state", function(req, res){
+  console.log(req.params.state)
+  console.log(req.body)
+  Primaries.findOneAndUpdate({state: req.params.state}, req.body.primary, {new: true}).then(function(primary){
+    res.redirect("/" + primary.state)
+  });
+});
+
 app.listen(3001, function(){
   console.log("I'm alive.")
 });
